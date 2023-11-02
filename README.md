@@ -11,8 +11,8 @@ If you are interested in learning how these models work, please take a look at t
 * Chat interface
 * Speech-to-text prompting, with text-to-speech responses.
 * Shows possible approaches for prompt construction (prompt engineering) and interaction between the model and the chosen input.
+* Full version provides search capabilities using Azure Cognitive Search, as well as language capabilites through AI Speech.
 
-![Architecture Diagram of Application](./assets/app-architecture-diagram.png)
 
 ## **Getting Started**
 
@@ -61,6 +61,15 @@ Similarly to the Azure OpenAI resource, we can use the Azure CLI command with mi
 az cognitiveservices account create --name <resource-name> --resource-group tsopenai-demo --kind SpeechServices --sku S0--location <location>
 ```
 
+**Azure Cognitive Search Resource**
+
+Lastly, we will also use the Azure CLI to create the Azure Cognitive Search resource.
+
+```console
+az search service create --name <resource-name> --resource-group tsopenai-demo --kind SpeechServices --sku free <location>
+```
+
+
 ***Accessing the resources' keys and endpoints***
 
 This application uses the Azure OpenAI Service REST API to communicate with the model, and the SpeechSDK to run the speech recognition and speech-to-text functionalities. For both of these to work, we will need to access the resources' keys, endpoint (in the case of the OpenAI Service) and region (in the case of the Speech Service).
@@ -101,23 +110,28 @@ Once you've started a codespace and it has finished setting up and loading, foll
 npm install
 ```
 ```Console
-cd client npm install
+cd server npm install
 ```
 
 2. Rename the `.env.example` file to `.env` and update its values with your own keys, endpoints and region. These will become environment variables for the application to access.
 
-3. To start the application, ensure you are at the root folder and use the following command:
+3. To start the server, run the following command
+
+```Console
+npm run start
+```
+
+4. To start the application, open a new terminal at the root folder and use the following command:
 
 ```Console
 npm run dev
 ```
 
-
-4. Once the application is running, you will notice a tab named **Ports** next to the VS Code terminal. Click on it, and then make sure the Visibility for Port 8000 is changed from *Private* to *Public*.
+5s. Once the application is running, you will notice a tab named **Ports** next to the VS Code terminal. Click on it, and then make sure the Visibility for Port 3001 is changed from *Private* to *Public*.
 
 ![Screenshot of Codespaces Port Management Tab](./assets/ports-visibility.png)
 
-5. Copy the *Local Address* of Port 8000, and paste it on line 46 of the [App.tsx](./client/src/App.tsx) file, where we usually would have a *localhost* URL.
+5. Copy the *Local Address* of Port 3001, and paste it on line 46 of the [App.tsx](./client/src/App.tsx) file, where we usually would have a *localhost* URL.
 Don't forget to add `/open-ai-api-call` at the end, so that it looks similar to this:
 
 ```HTTP
@@ -158,7 +172,13 @@ cd client npm install
 
 3. Rename the `.env.example` file to `.env` and update its values with your own keys, endpoints and region. These will become environment variables for the application to access.
 
-4. To run the application, ensure you are at the root folder and use the following command:
+4. To start the server, run the following command
+
+```Console
+npm run start
+```
+
+5. To run the application, ensure you are at the root folder and use the following command:
 
 ```Console
 npm run dev
