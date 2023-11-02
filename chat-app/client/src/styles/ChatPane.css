@@ -1,0 +1,12 @@
+#chatPane {
+    display: grid;
+    grid-template-rows: 9fr 1fr;
+    background-color: var(--colorNeutralBackground2)
+}
+
+#chatInput {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}

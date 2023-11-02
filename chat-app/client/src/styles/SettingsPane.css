@@ -1,0 +1,40 @@
+img {
+    height: 100%;
+    width: 100%;
+}
+
+#settingsPane {
+    background-color: var(--colorNeutralBackground2);
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: left;
+    align-items: center;
+}
+
+.settings > ul {
+    padding: 0;
+    width: 100%;
+}
+
+.setting > div {
+    width: 100%;
+    min-width: auto;
+}
+
+.settings > ul > li {
+    list-style: none;
+    margin-block: 1.5em;
+}
+
+.setting {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.logo-button {
+    border: none;
+}

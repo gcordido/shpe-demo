@@ -1,0 +1,23 @@
+.blinking {
+    animation: blink-animation 1s steps(5, start) infinite;
+    -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+
+.chatInput {
+    min-height: min-content;
+}
+
+@keyframes blink-animation {
+    0% {
+        border-color: transparent;
+        box-shadow: none;
+    }
+    50% {
+        border: solid 2px red;
+        box-shadow: 0 0 10px red;
+    }
+    100% {
+        border-color: transparent;
+        box-shadow: none;
+    }
+}
