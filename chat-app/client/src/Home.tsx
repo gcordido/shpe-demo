@@ -16,7 +16,7 @@ const Logos = () => {
     return (
         <section className='logos'>
             <img src={img} id='shpeLogo' alt="SHPE Logo" />
-            <h1 id="shpeTitle">SHPE AI</h1>
+            <h1 id="shpeTitle">SHPE Chat</h1>
             <section id="msft">
                 <p id="msftPowered">Powered by</p>
                 <img src={MicrosoftLogo} id='msftLogo' alt="SHPE Logo" />
