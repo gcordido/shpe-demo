@@ -1,6 +1,6 @@
-# SHPE Demo
+# Society of Hispanic Professional Engineers (SHPE) Demos
 
-This sample demonstrates a simple web-based approach for creating a chatbot that includes text and speech based prompts. It uses Azure OpenAI Service to access the ChatGPT model (gpt-35-turbo), Azure AI Speech (part of cognitive services) to provide the speech-to-text and text-to-speech support, and Azure Cognitive Search for parsing an index for data, which is the vectors used for context. The application runs on a React front-end application written in TypeScript and a simple Express server for the back-end.
+This sample demonstrates a simple web-based approach for creating a chatbot around the SHPE 2023 National Convention that includes text and speech based prompts. It uses Azure OpenAI Service to access the ChatGPT model (gpt-35-turbo), Azure AI Speech (part of cognitive services) to provide the speech-to-text and text-to-speech support, and Azure Cognitive Search for searching an index for data, which includes the vectors used for context. The application runs on a React front-end application written in TypeScript and a simple Express server for the back-end.
 
 If you are interested in learning how these models work, please take a look at this article:
 
@@ -9,7 +9,6 @@ If you are interested in learning how these models work, please take a look at t
 ## **Features**
 
 * Chat interface
-* Speech-to-text prompting, with text-to-speech responses.
 * Shows possible approaches for prompt construction (prompt engineering) and interaction between the model and the chosen input.
 * Full version provides search capabilities using Azure Cognitive Search, as well as language capabilites through AI Speech.
 
@@ -42,7 +41,7 @@ az login
 Once this is done, we can create a resource group that will be used to host our resources:
 
 ```console
-az group create --name tsopenai-demo --location <eastus>
+az group create --name shpe-demo --location <eastus>
 ```
 
 **Azure OpenAI Resource**
@@ -50,7 +49,7 @@ az group create --name tsopenai-demo --location <eastus>
 Next, we move on to create an Azure OpenAI resource. Fill in the information surrounded by `<>` to your liking.
 
 ```console
-az cognitiveservices account create --name <resource-name> --resource-group tsopenai-demo --kind OpenAI --sku S0 --location <location>
+az cognitiveservices account create --name <resource-name> --resource-group shpe-demo --kind OpenAI --sku S0 --location <location>
 ```
 
 **Azure AI Speech Resource**
@@ -58,7 +57,7 @@ az cognitiveservices account create --name <resource-name> --resource-group tsop
 Similarly to the Azure OpenAI resource, we can use the Azure CLI command with minor adjustments to the command.
 
 ```console
-az cognitiveservices account create --name <resource-name> --resource-group tsopenai-demo --kind SpeechServices --sku S0--location <location>
+az cognitiveservices account create --name <resource-name> --resource-group shpe-demo --kind SpeechServices --sku S0--location <location>
 ```
 
 **Azure Cognitive Search Resource**
@@ -66,28 +65,33 @@ az cognitiveservices account create --name <resource-name> --resource-group tsop
 Lastly, we will also use the Azure CLI to create the Azure Cognitive Search resource.
 
 ```console
-az search service create --name <resource-name> --resource-group tsopenai-demo --kind SpeechServices --sku free <location>
+az search service create --name <resource-name> --resource-group shpe-demo --kind SpeechServices --sku free <location>
 ```
 
 
 ***Accessing the resources' keys and endpoints***
 
-This application uses the Azure OpenAI Service REST API to communicate with the model, and the SpeechSDK to run the speech recognition and speech-to-text functionalities. For both of these to work, we will need to access the resources' keys, endpoint (in the case of the OpenAI Service) and region (in the case of the Speech Service).
+This application uses the Azure OpenAI Service REST API to communicate with the model, and the SpeechSDK to run the speech recognition and speech-to-text functionalities. For both of these to work, we will need to access the resources' keys, endpoint (in the case of the OpenAI Service and the Cognitive Search service) and region (in the case of the Speech Service).
 
-This can be done by visiting the Azure Portal or the Azure CLI. To do this via the Azure CLI, use the following command and replace the `<resource-name>` and `<resource-group-name>` with the ones you created in the prior steps.
+This can be done by visiting the Azure Portal or the Azure CLI. To do this via the Azure CLI, use the following command and replace the `<resource-name>` and `shpe-demo` with the ones you created in the prior steps.
 
 ```Console
-az cognitiveservices account keys list --name <resource-name> --resource-group <resource-group-name>
+az cognitiveservices account keys list --name <resource-name> --resource-group shpe-demo
 ```
 For the endpoint:
 ```Console
-az cognitiveservices account show --name <resource-name> --resource-group <resource-group-name> --query endpoint
+az cognitiveservices account show --name <resource-name> --resource-group shpe-demo --query endpoint
 ```
 
 And for the speech service region:
 ```Console
-az cognitiveservices account show --name <resource-name> --resource-group <resource-group-name> --query location
+az cognitiveservices account show --name <resource-name> --resource-group shpe-demo --query location
 ```
+
+### **Creating an Index with the Conference's Data**
+
+Follow this guide to set up your searchable index: **[Preparing your Index.](./data/Preparing-your-index.md)**
+
 
 ### **Running in GitHub Codespaces**
 
@@ -135,16 +139,16 @@ npm run dev
 Don't forget to add `/open-ai-api-call` at the end, so that it looks similar to this:
 
 ```HTTP
-https://YOUR_GITHUB_CODESPACESNAME-hashedNumbers-8000.preview.app.github.dev/openai-api-call
+https://YOUR_GITHUB_CODESPACESNAME-hashedNumbers-3001.preview.app.github.dev/openai-api-call
 ```
 
-6. Similarly, navigate to the [token_util.js](./client/src/token_util.js) file, and paste the *Local Address* of port 8000 on line 17, replacing the *localhost* URL.
+6. Similarly, navigate to the [token_util.js](./client/src/token_util.js) file, and paste the *Local Address* of port 3001 on line 17, replacing the *localhost* URL.
 
 ```JavaScript
- const res = await axios.get('https://YOUR_GITHUB_CODESPACESNAME-hashedNumbers-8000.preview.app.github.dev/api/get-speech-token');
+ const res = await axios.get('https://YOUR_GITHUB_CODESPACESNAME-hashedNumbers-3001.preview.app.github.dev/api/get-speech-token');
 ```
 
-7. The application can be accessed by CTRL + clicking the Local Address for port 3000.
+7. The application can be accessed by CTRL + clicking the Local Address for port 5173.
 
 You can also find a video showcasing these steps here:
 
